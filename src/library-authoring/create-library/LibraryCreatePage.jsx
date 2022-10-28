@@ -270,9 +270,9 @@ export class LibraryCreatePage extends React.Component {
           <div className="wrapper-content wrapper">
             <section className="content">
               <form onSubmit={this.onSubmit} className="form-create">
-                <fieldset>
-                  <ol className="list-input">
-                    <li className="field">
+                {/* <fieldset> */}
+                  {/* <ul className="list-input">
+                    <li className="field"> */}
                       <FormGroup
                         name="title"
                         type="text"
@@ -285,18 +285,27 @@ export class LibraryCreatePage extends React.Component {
                         placeholder={intl.formatMessage(messages['library.form.title.placeholder'])}
                         helpText={intl.formatMessage(messages['library.form.title.help'])}
                       />
-                    </li>
-                    <li className="field">
-                      <Form.Autosuggest
-                        placeholder={intl.formatMessage(messages['library.form.org.placeholder'])}
-                        aria-label="form autosuggest library organization"
-                        errorMessageText={this.getFieldError('org')}
-                        helpMessage={intl.formatMessage(messages['library.form.org.help'])}
-                        value={data.org}
-                        onSelected={this.handleOnChangeOrg}
-                      >
-                        {orgs.map(org => <Form.AutosuggestOption>{org}</Form.AutosuggestOption>)}
-                      </Form.Autosuggest>
+                    {/* </li>
+                    <li className="field"> */}
+                      <Form.Group size="sm" isInvalid={!!this.getFieldError('org')}>
+                        <Form.Label>{intl.formatMessage(messages['library.form.org.label'])}</Form.Label>
+                        <Form.Autosuggest
+                          placeholder={intl.formatMessage(messages['library.form.org.placeholder'])}
+                          aria-label="form autosuggest library organization"
+                          errorMessageText={this.getFieldError('org')}
+                          helpMessage={intl.formatMessage(messages['library.form.org.help'])}
+                          value={data.org}
+                          onSelected={this.handleOnChangeOrg}
+                          autocomplete="off"
+                        >
+                          {orgs.map(orgOption => <Form.AutosuggestOption>{orgOption}</Form.AutosuggestOption>)}
+                        </Form.Autosuggest>
+                        {this.getFieldError('org') &&
+                          <Form.Control.Feedback type="invalid">
+                            {this.getFieldError('org')}
+                          </Form.Control.Feedback>
+                        }
+                      </Form.Group>
                       {/* <OrganizationDropdown
                         disabled
                         type="text"
@@ -313,8 +322,8 @@ export class LibraryCreatePage extends React.Component {
                         errorMessage={this.getFieldError('org')}
                         helpMessage={intl.formatMessage(messages['library.form.org.help'])}
                       /> */}
-                    </li>
-                    <li className="field">
+                    {/* </li>
+                    <li className="field"> */}
                       <FormGroup
                         name="slug"
                         type="text"
@@ -327,9 +336,9 @@ export class LibraryCreatePage extends React.Component {
                         placeholder={intl.formatMessage(messages['library.form.slug.placeholder'])}
                         helpText={intl.formatMessage(messages['library.form.slug.help'])}
                       />
-                    </li>
-                  </ol>
-                </fieldset>
+                    {/* </li>
+                  </ul> */}
+                {/* </fieldset> */}
                 <div className="actions form-group">
                   <Button
                     size="md"
