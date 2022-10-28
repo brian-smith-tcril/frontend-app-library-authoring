@@ -11,6 +11,7 @@ import {
   Alert,
   AlertModal,
   ActionRow,
+  Form,
 } from '@edx/paragon';
 import { Info } from '@edx/paragon/icons';
 import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
@@ -286,7 +287,17 @@ export class LibraryCreatePage extends React.Component {
                       />
                     </li>
                     <li className="field">
-                      <OrganizationDropdown
+                      <Form.Autosuggest
+                        placeholder={intl.formatMessage(messages['library.form.org.placeholder'])}
+                        aria-label="form autosuggest library organization"
+                        errorMessageText={this.getFieldError('org')}
+                        helpMessage={intl.formatMessage(messages['library.form.org.help'])}
+                        value={data.org}
+                        onSelected={this.handleOnChangeOrg}
+                      >
+                        {orgs.map(org => <Form.AutosuggestOption>{org}</Form.AutosuggestOption>)}
+                      </Form.Autosuggest>
+                      {/* <OrganizationDropdown
                         disabled
                         type="text"
                         name="org"
@@ -301,7 +312,7 @@ export class LibraryCreatePage extends React.Component {
                         placeholder={intl.formatMessage(messages['library.form.org.placeholder'])}
                         errorMessage={this.getFieldError('org')}
                         helpMessage={intl.formatMessage(messages['library.form.org.help'])}
-                      />
+                      /> */}
                     </li>
                     <li className="field">
                       <FormGroup
