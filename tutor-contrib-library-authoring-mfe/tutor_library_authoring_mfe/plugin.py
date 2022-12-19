@@ -66,12 +66,6 @@ if (fs.existsSync("src/library-authoring/edit-block/LibraryBlock/xblock-bootstra
 }
 """))
 
-# CMS initialization scripts to set required waffle flags:
-hooks.Filters.COMMANDS_INIT.add_item((
-    "cms",
-    ("library_authoring_mfe", "tasks", "cms", "init"),
-))
-
 # Configure plugin templates
 hooks.Filters.ENV_TEMPLATE_ROOTS.add_item(
     pkg_resources.resource_filename("tutor_library_authoring_mfe", "templates")

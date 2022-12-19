@@ -13,14 +13,12 @@ recent (July 2022 or newer) version of edx-platform (`master` branch), and the
 
 Then, follow these instructions to enable this microfrontend:
 
-1. Install this plugin: ``pip install -e 'git+https://github.com/openedx/frontend-app-library-authoring.git#egg=tutor-contrib-library-authoring-mfe&subdirectory=tutor-contrib-library-authoring-mfe'``
-2. Enable the plugin: ``tutor plugins enable library_authoring_mfe``
-3. Run ``tutor config save``.
-4. Run ``tutor dev init -l library_authoring_mfe`` to set the required waffle flags in the CMS.
-5. Restart your Tutor Nightly Dev environment and also start this with ``tutor dev start library-authoring``
-6. Go to http://studio.local.overhang.io:8001/home/ , click "Libraries", and create a new library with
-   "Library Type: Complex (beta)"
-
+1. Install/enable the blockstore plugin (todo: details)
+2. Install this plugin: ``pip install -e 'git+https://github.com/openedx/frontend-app-library-authoring.git#egg=tutor-contrib-library-authoring-mfe&subdirectory=tutor-contrib-library-authoring-mfe'``
+3. Enable the plugin: ``tutor plugins enable library_authoring_mfe``
+4. Run ``tutor config save``.
+5. ``tutor local launch``
+6. hopefully everything works? (todo: make it work)
 
 If you want to run this MFE in
 `development mode <https://github.com/overhangio/tutor-mfe/#mfe-development>`
