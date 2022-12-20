@@ -1,0 +1,1 @@
+LIBRARY_AUTHORING_MICROFRONTEND_URL: "http://{{ MFE_HOST }}:3001/library-authoring"
