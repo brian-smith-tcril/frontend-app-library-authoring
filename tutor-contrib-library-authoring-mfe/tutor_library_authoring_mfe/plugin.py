@@ -62,6 +62,70 @@ for path in glob(
         tutor_hooks.Filters.ENV_PATCHES.add_item((os.path.basename(path), patch_file.read()))
 
 
+########################################
+# DOCKER IMAGE BUILD/PULL/PUSH
+########################################
+
+# Build, pull and push the library authoring mfe image
+
+# IMAGES_BUILD: Filter[list[tuple[str, tuple[str, ...], str, tuple[str, ...]]], [Config]]= Filter('images:build')
+# List of images to be built when we run tutor images build ....
+
+# Parameters
+# tasks (list[tuple[str, tuple[str, ...], str, tuple[str, ...]]]) –
+
+# list of (name, path, tag, args) tuples.
+
+# name is the name of the image, as in tutor images build myimage.
+
+# path is the relative path to the folder that contains the Dockerfile. For instance ("myplugin", "build", "myservice") indicates that the template will be read from myplugin/build/myservice/Dockerfile
+
+# tag is the Docker tag that will be applied to the image. It will be rendered at runtime with the user configuration. Thus, the image tag could be "{{ DOCKER_REGISTRY }}/myimage:{{ TUTOR_VERSION }}".
+
+# args is a list of arguments that will be passed to docker build ....
+
+# config (dict) – user configuration.
+
+
+tutor_hooks.Filters.IMAGES_BUILD.add_item(
+    (
+        "library-authoring-mfe",
+        ("plugins", "mfe", "build", "mfe"),
+        "{{ DOCKER_REGISTRY }}bsmithtcril/library-authoring-mfe:{{ MFE_VERSION }}",
+        (),
+    )
+)
+
+# IMAGES_PULL: Filter[list[tuple[str, str]], [Config]]= Filter('images:pull')
+# List of images to be pulled when we run tutor images pull ....
+
+# Parameters
+# tasks (list[tuple[str, str]]) –
+
+# list of (name, tag) tuples.
+
+# name is the name of the image, as in tutor images pull myimage.
+
+# tag is the Docker tag that will be applied to the image. (see IMAGES_BUILD).
+
+# config (dict) – user configuration.
+
+tutor_hooks.Filters.IMAGES_PULL.add_item(
+    (
+        "library-authoring-mfe",
+        "{{ DOCKER_REGISTRY }}bsmithtcril/library-authoring-mfe:{{ MFE_VERSION }}",
+    )
+)
+
+# IMAGES_PUSH: Filter[list[tuple[str, str]], [Config]]= Filter('images:push')
+# List of images to be pushed when we run tutor images push .... Parameters are the same as for IMAGES_PULL.
+
+tutor_hooks.Filters.IMAGES_PUSH.add_item(
+    (
+        "library-authoring-mfe",
+        "{{ DOCKER_REGISTRY }}bsmithtcril/library-authoring-mfe:{{ MFE_VERSION }}",
+    )
+)
 
 # ENDENDEND
 # ENDENDEND
