@@ -13,8 +13,15 @@ from .__about__ import __version__
 tutor_hooks.Filters.CONFIG_DEFAULTS.add_items(
     [
         ("LIBRARY_AUTHORING_MICROFRONTEND_VERSION", __version__),
+        ("LIBRARY_AUTHORING_MFE_APP", {
+            "name": "library-authoring",
+            "repository": "https://github.com/openedx/frontend-app-library-authoring",
+            "port": 3001,
+            # "version": "me/my-custom-branch", # optional
+        })
     ]
 )
+
 
 ########################################
 # INITIALIZATION TASKS
@@ -87,14 +94,14 @@ for path in glob(
 # config (dict) – user configuration.
 
 
-tutor_hooks.Filters.IMAGES_BUILD.add_item(
-    (
-        "library-authoring-mfe",
-        ("plugins", "mfe", "build", "mfe"),
-        "{{ DOCKER_REGISTRY }}bsmithtcril/library-authoring-mfe:{{ MFE_VERSION }}",
-        (),
-    )
-)
+# tutor_hooks.Filters.IMAGES_BUILD.add_item(
+#     (
+#         "library-authoring-mfe",
+#         ("plugins", "mfe", "build", "mfe"),
+#         "{{ DOCKER_REGISTRY }}bsmithtcril/library-authoring-mfe:{{ MFE_VERSION }}",
+#         (),
+#     )
+# )
 
 # IMAGES_PULL: Filter[list[tuple[str, str]], [Config]]= Filter('images:pull')
 # List of images to be pulled when we run tutor images pull ....
@@ -110,22 +117,22 @@ tutor_hooks.Filters.IMAGES_BUILD.add_item(
 
 # config (dict) – user configuration.
 
-tutor_hooks.Filters.IMAGES_PULL.add_item(
-    (
-        "library-authoring-mfe",
-        "{{ DOCKER_REGISTRY }}bsmithtcril/library-authoring-mfe:{{ MFE_VERSION }}",
-    )
-)
+# tutor_hooks.Filters.IMAGES_PULL.add_item(
+#     (
+#         "library-authoring-mfe",
+#         "{{ DOCKER_REGISTRY }}bsmithtcril/library-authoring-mfe:{{ MFE_VERSION }}",
+#     )
+# )
 
 # IMAGES_PUSH: Filter[list[tuple[str, str]], [Config]]= Filter('images:push')
 # List of images to be pushed when we run tutor images push .... Parameters are the same as for IMAGES_PULL.
 
-tutor_hooks.Filters.IMAGES_PUSH.add_item(
-    (
-        "library-authoring-mfe",
-        "{{ DOCKER_REGISTRY }}bsmithtcril/library-authoring-mfe:{{ MFE_VERSION }}",
-    )
-)
+# tutor_hooks.Filters.IMAGES_PUSH.add_item(
+#     (
+#         "library-authoring-mfe",
+#         "{{ DOCKER_REGISTRY }}bsmithtcril/library-authoring-mfe:{{ MFE_VERSION }}",
+#     )
+# )
 
 # ENDENDEND
 # ENDENDEND
