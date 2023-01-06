@@ -1,6 +1,7 @@
 from glob import glob
 import os
 import pkg_resources
+import uuid
 
 from tutor import hooks as tutor_hooks
 
@@ -19,6 +20,12 @@ tutor_hooks.Filters.CONFIG_DEFAULTS.add_items(
             "port": 3001,
             # "version": "me/my-custom-branch", # optional
         })
+    ]
+)
+
+tutor_hooks.Filters.CONFIG_UNIQUE.add_items(
+    [
+        ("BLOCKSTORE_COLLECTION_UUID", str(uuid.uuid4()))
     ]
 )
 
