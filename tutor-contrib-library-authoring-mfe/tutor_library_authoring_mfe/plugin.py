@@ -16,9 +16,9 @@ tutor_hooks.Filters.CONFIG_DEFAULTS.add_items(
         ("LIBRARY_AUTHORING_MICROFRONTEND_VERSION", __version__),
         ("LIBRARY_AUTHORING_MFE_APP", {
             "name": "library-authoring",
-            "repository": "https://github.com/openedx/frontend-app-library-authoring",
+            "repository": "https://github.com/brian-smith-tcril/frontend-app-library-authoring",
             "port": 3001,
-            # "version": "use-blockstore-plugin", # optional
+            "version": "use-blockstore-plugin", # optional
         })
     ]
 )
@@ -74,6 +74,33 @@ for path in glob(
 ):
     with open(path, encoding="utf-8") as patch_file:
         tutor_hooks.Filters.ENV_PATCHES.add_item((os.path.basename(path), patch_file.read()))
+
+# Tutor overwrites webpack.dev.config.js, but this MFE depends on some code
+# in that file to work correctly so we have to restore it here manually.
+# https://github.com/openedx/frontend-app-library-authoring/blob/b95c198b/webpack.dev.config.js
+webpack_config_patch = """
+const fs = require('fs');
+
+// If this is the Library Authoring MFE, apply this fix:
+if (fs.existsSync("src/library-authoring/edit-block/LibraryBlock/xblock-bootstrap.html")) {
+    const path = require('path');
+    const CopyWebpackPlugin = require('copy-webpack-plugin');
+    module.exports = merge(module.exports, {
+    plugins: [
+        new CopyWebpackPlugin({
+        patterns: [{
+            context: path.resolve(__dirname, 'src/library-authoring/edit-block/LibraryBlock'),
+            from: 'xblock-bootstrap.html',
+        }],
+        }),
+    ],
+    });
+}
+"""
+
+tutor_hooks.Filters.ENV_PATCHES.add_item(("mfe-webpack-dev-config", webpack_config_patch))
+tutor_hooks.Filters.ENV_PATCHES.add_item(("mfe-webpack-prod-config", webpack_config_patch))
+
 
 
 ########################################
@@ -190,25 +217,3 @@ for path in glob(
 #     }
 # }))
 
-# # Tutor overwrites webpack.dev.config.js, but this MFE depends on some code in that file to work correctly in
-# # development, so we have to restore it here manually.
-# # https://github.com/openedx/frontend-app-library-authoring/blob/b95c198b/webpack.dev.config.js
-# hooks.Filters.ENV_PATCHES.add_item(("mfe-webpack-dev-config","""
-# const fs = require('fs');
-
-# // If this is the Library Authoring MFE, apply this fix:
-# if (fs.existsSync("src/library-authoring/edit-block/LibraryBlock/xblock-bootstrap.html")) {
-#     const path = require('path');
-#     const CopyWebpackPlugin = require('copy-webpack-plugin');
-#     module.exports = merge(module.exports, {
-#     plugins: [
-#         new CopyWebpackPlugin({
-#         patterns: [{
-#             context: path.resolve(__dirname, 'src/library-authoring/edit-block/LibraryBlock'),
-#             from: 'xblock-bootstrap.html',
-#         }],
-#         }),
-#     ],
-#     });
-# }
-# """))
