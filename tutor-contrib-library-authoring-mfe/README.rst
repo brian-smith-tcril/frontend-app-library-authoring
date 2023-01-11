@@ -28,5 +28,8 @@ Setup
 -----
 1. Ensure you have created a user: https://docs.tutor.overhang.io/local.html#creating-a-new-user-with-staff-and-admin-rights
 2. Ensure you have created an organization: http://studio.local.overhang.io/admin/organizations/organization/
-3. Log in to studio: http://studio.local.overhang.io/home/
-4. Click on the libraries tab
+
+Usage
+-----
+1. Log in to studio: http://studio.local.overhang.io/home/
+2. Click on the libraries tab
