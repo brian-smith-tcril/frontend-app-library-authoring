@@ -78,7 +78,7 @@ for path in glob(
 # Tutor overwrites webpack.dev.config.js, but this MFE depends on some code
 # in that file to work correctly so we have to restore it here manually.
 # https://github.com/openedx/frontend-app-library-authoring/blob/b95c198b/webpack.dev.config.js
-webpack_config_patch = """
+tutor_hooks.Filters.ENV_PATCHES.add_item(("mfe-webpack-dev-config","""
 const fs = require('fs');
 
 // If this is the Library Authoring MFE, apply this fix:
@@ -96,10 +96,7 @@ if (fs.existsSync("src/library-authoring/edit-block/LibraryBlock/xblock-bootstra
     ],
     });
 }
-"""
-
-tutor_hooks.Filters.ENV_PATCHES.add_item(("mfe-webpack-dev-config", webpack_config_patch))
-tutor_hooks.Filters.ENV_PATCHES.add_item(("mfe-webpack-prod-config", webpack_config_patch))
+"""))
 
 
 
