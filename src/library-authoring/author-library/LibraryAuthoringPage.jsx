@@ -192,7 +192,7 @@ const BlockPreviewContainerBase = ({
     if (needsView({ blockStates, id: block.id })) {
       props.fetchLibraryBlockView({
         blockId: block.id,
-        viewSystem: XBLOCK_VIEW_SYSTEM.LMS,
+        viewSystem: XBLOCK_VIEW_SYSTEM.Studio,
         viewName: 'student_view',
       });
     }
