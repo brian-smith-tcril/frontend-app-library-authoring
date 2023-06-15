@@ -16,9 +16,8 @@ tutor_hooks.Filters.CONFIG_DEFAULTS.add_items(
         ("LIBRARY_AUTHORING_MICROFRONTEND_VERSION", __version__),
         ("LIBRARY_AUTHORING_MFE_APP", {
             "name": "library-authoring",
-            "repository": "https://github.com/brian-smith-tcril/frontend-app-library-authoring",
+            "repository": "https://github.com/openedx/frontend-app-library-authoring",
             "port": 3001,
-            "version": "tutor-prod", # optional
         })
     ]
 )
